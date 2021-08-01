@@ -11,14 +11,47 @@ function createGrid(gridNum) {
         div.classList.add('pixel');
         container.appendChild(div);
 
-        div.addEventListener("mouseover", function(e) {
-            if(e.target.style.backgroundColor === "black"){
+        div.addEventListener("mouseout", function(e) {
+            //if(e.target.style.backgroundColor === "black"){
                 e.target.style.backgroundColor = "orange";
-            }
-            else{
-                e.target.style.backgroundColor = "black";
-            }
+            //}
+            //else{
+            //    e.target.style.backgroundColor = "black";
+            //}
         })
     }
 }
 
+const reset = document.querySelector('button');
+reset.addEventListener('click', function(e) {
+    resetGrid();
+})
+
+function resetGrid() {
+    let valid = false;
+    let userInput = null;
+
+    while(valid === false){
+        userInput = parseInt(prompt("Number of squares for new grid:"));
+        if(isNumber(userInput)){
+            if(userInput <= 100 && userInput >0){
+                valid = true;
+            }
+            else{
+                alert("Please put in a number between 0 and 100.");
+            }
+        }
+        else{
+            alert("Invalid entry. Please try again.");
+        }
+    }
+    
+    const grid = document.querySelectorAll('.pixel');
+    grid.forEach(div => {
+        div.remove();
+    });
+
+    createGrid(userInput);
+}
+
+function isNumber(n) { return /^-?[\d.]+(?:e-?\d+)?$/.test(n); } 

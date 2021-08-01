@@ -9,7 +9,12 @@ html{
 body{
     display: grid;
     height: 100%;
-    place-items: center;
+    place-items: start center;
+    grid-template: 100px 1fr / 1fr;
+}
+
+button{
+    margin-top: 20px;
 }
 
 #sketch-con {
