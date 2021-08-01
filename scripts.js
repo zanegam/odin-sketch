@@ -1,5 +1,3 @@
-const startColor = document.querySelector('.selected-btn').id;
-
 createGrid(16);
 
 const selectBtns = document.querySelectorAll('.select-btns');
@@ -24,12 +22,14 @@ function createGrid(gridNum) {
 
     root.style.setProperty('--grid-num', gridNum);
 
+    const color = document.querySelector('.selected-btn').id;
+
     for(i=0; i < Math.pow(gridNum, 2); i++){
         const div = document.createElement('div');
         div.classList.add('pixel');
         container.appendChild(div);
 
-        chooseColor(startColor, null);
+        chooseColor(color, null);
     }
 }
 
@@ -67,13 +67,13 @@ function chooseColor(btnId, selectedBtn){
     pixels.forEach(pixel => {
         switch(selectedBtn){
             case "black":
-                pixel.removeEventListener('mouseout', paintBlack);
+                pixel.removeEventListener('mouseenter', paintBlack);
                 break;
             case "white":
-                pixel.removeEventListener('mouseout', paintWhite);
+                pixel.removeEventListener('mouseenter', paintWhite);
                 break;
             case "random":
-                pixel.removeEventListener('mouseout', paintRandom);
+                pixel.removeEventListener('mouseenter', paintRandom);
                 break;
             case null:
                 break;
@@ -82,13 +82,13 @@ function chooseColor(btnId, selectedBtn){
         }
         switch(btnId){
             case "black":
-                pixel.addEventListener('mouseout', paintBlack);
+                pixel.addEventListener('mouseenter', paintBlack);
                 break;
             case "white":
-                pixel.addEventListener('mouseout', paintWhite);
+                pixel.addEventListener('mouseenter', paintWhite);
                 break;
             case "random":
-                pixel.addEventListener('mouseout', paintRandom);
+                pixel.addEventListener('mouseenter', paintRandom);
                 break;
             default:
                 console.log(btnId);    
