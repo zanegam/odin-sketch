@@ -1,4 +1,22 @@
+const startColor = document.querySelector('.selected-btn').id;
+
 createGrid(16);
+
+const selectBtns = document.querySelectorAll('.select-btns');
+selectBtns.forEach(btn => {
+    btn.addEventListener('click', function(e) {
+        const btnId = e.originalTarget.id;
+        if(btnId !== "reset"){
+            const selectedBtn = document.querySelector('.selected-btn');
+            chooseColor(btnId, selectedBtn.id);
+            selectedBtn.classList.remove('selected-btn');
+            e.originalTarget.classList.add('selected-btn');
+        }
+        else{
+            resetGrid();
+        }
+    });
+});
 
 function createGrid(gridNum) {
     let root = document.documentElement;
@@ -11,16 +29,9 @@ function createGrid(gridNum) {
         div.classList.add('pixel');
         container.appendChild(div);
 
-        div.addEventListener("mouseout", function(e) {
-            e.target.style.backgroundColor = "black";
-        })
+        chooseColor(startColor, null);
     }
 }
-
-const reset = document.querySelector('button');
-reset.addEventListener('click', function(e) {
-    resetGrid();
-})
 
 function resetGrid() {
     let valid = false;
@@ -50,3 +61,49 @@ function resetGrid() {
 }
 
 function isNumber(n) { return /^-?[\d.]+(?:e-?\d+)?$/.test(n); } 
+
+function chooseColor(btnId, selectedBtn){
+    const pixels = document.querySelectorAll('.pixel');
+    pixels.forEach(pixel => {
+        switch(selectedBtn){
+            case "black":
+                pixel.removeEventListener('mouseout', paintBlack);
+                break;
+            case "white":
+                pixel.removeEventListener('mouseout', paintWhite);
+                break;
+            case "random":
+                pixel.removeEventListener('mouseout', paintRandom);
+                break;
+            case null:
+                break;
+            default:
+                console.log(selectedBtn);
+        }
+        switch(btnId){
+            case "black":
+                pixel.addEventListener('mouseout', paintBlack);
+                break;
+            case "white":
+                pixel.addEventListener('mouseout', paintWhite);
+                break;
+            case "random":
+                pixel.addEventListener('mouseout', paintRandom);
+                break;
+            default:
+                console.log(btnId);    
+        }
+    });
+}
+
+function paintBlack(e){
+    e.target.style.backgroundColor = "black";
+}
+
+function paintWhite(e){
+    e.target.style.backgroundColor = "white";
+}
+
+function paintRandom(e){
+    e.target.style.backgroundColor = "orange";
+}
