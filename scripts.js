@@ -12,12 +12,7 @@ function createGrid(gridNum) {
         container.appendChild(div);
 
         div.addEventListener("mouseout", function(e) {
-            //if(e.target.style.backgroundColor === "black"){
-                e.target.style.backgroundColor = "orange";
-            //}
-            //else{
-            //    e.target.style.backgroundColor = "black";
-            //}
+            e.target.style.backgroundColor = "black";
         })
     }
 }
