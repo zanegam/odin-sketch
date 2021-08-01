@@ -8,9 +8,17 @@ function createGrid(gridNum) {
 
     for(i=0; i < Math.pow(gridNum, 2); i++){
         const div = document.createElement('div');
-        const para = document.createElement('para');
-        para.textContent = i+1;
-        div.appendChild(para);
+        div.classList.add('pixel');
         container.appendChild(div);
+
+        div.addEventListener("mouseover", function(e) {
+            if(e.target.style.backgroundColor === "black"){
+                e.target.style.backgroundColor = "orange";
+            }
+            else{
+                e.target.style.backgroundColor = "black";
+            }
+        })
     }
 }
+
